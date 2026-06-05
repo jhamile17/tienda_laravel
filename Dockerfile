@@ -35,6 +35,8 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npm run build
 
+RUN ls -la public/build
+
 # permisos
 RUN chmod -R 777 storage bootstrap/cache
 
