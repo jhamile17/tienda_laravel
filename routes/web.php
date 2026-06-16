@@ -194,6 +194,48 @@ Route::get('/pagos/error',     [MercadoPagoController::class, 'failure'])->name(
 // Si usas CSRF, recuerda excluir esta ruta en VerifyCsrfToken::$except.
 Route::post('/webhooks/mercadopago', [MercadoPagoWebhookController::class, 'handle'])->name('mp.webhook');
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+/*
+|--------------------------------------------------------------------------
+| VERIFICACIÓN DE CORREO
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware(['auth','verified'])->group(function () {
+
+    // Pantalla: "Verifica tu correo"
+    Route::get('/email/verify', function () {
+        return view('auth.verify-email');
+    })->name('verification.notice');
+
+    // Cuando el usuario hace clic en el enlace del correo
+    Route::get('/email/verify/{id}/{hash}',
+        function (EmailVerificationRequest $request) {
+
+            $request->fulfill();
+
+            return redirect()->route('customer.dashboard');
+
+    })->middleware(['signed'])
+      ->name('verification.verify');
+
+    // Reenviar correo
+    Route::post('/email/verification-notification',
+        function (Request $request) {
+
+            $request->user()
+                ->sendEmailVerificationNotification();
+
+            return back()->with(
+                'message',
+                'Correo reenviado correctamente'
+            );
+
+    })->middleware(['throttle:6,1'])
+      ->name('verification.send');
+});
+
 /*
 |--------------------------------------------------------------------------
 | Auth scaffolding (Breeze/Fortify/etc.)
