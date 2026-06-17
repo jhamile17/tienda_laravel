@@ -47,9 +47,9 @@ Route::bind('product', fn($v)=>Product::findOrFail($v));
 | RUTAS PÚBLICAS
 |--------------------------------------------------------------------------
 */
-Route::post('/wishlist/{product}', [WishlistController::class, 'toggle'])
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])
     ->name('wishlist.toggle');
-    
+
 Route::get('/chatbot', function () {
     return view('chatbot');
 });
