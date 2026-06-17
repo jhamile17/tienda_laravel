@@ -8,39 +8,27 @@ use Illuminate\Support\Facades\Http;
 class ChatbotController extends Controller
 {
     public function send(Request $request)
-    {
-        try {
+{
+    $message = $request->message;
 
-            $message = $request->message;
+    $apiKey = env('GEMINI_API_KEY');
 
-            $apiKey = env('GEMINI_API_KEY');
-
-            $response = Http::post(
-                "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}",
+    $response = Http::post(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={$apiKey}",
+        [
+            "contents" => [
                 [
-                    "contents" => [
+                    "parts" => [
                         [
-                            "parts" => [
-                                [
-                                    "text" => $message
-                                ]
-                            ]
+                            "text" => "Responde: ".$message
                         ]
                     ]
                 ]
-            );
+            ]
+        ]
+    );
 
-            return response()->json([
-                'status' => $response->status(),
-                'body' => $response->json()
-            ]);
-
-        } catch (\Exception $e) {
-
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
-
-        }
-    }
+    return response()->json(
+        $response->json()
+    );
 }
