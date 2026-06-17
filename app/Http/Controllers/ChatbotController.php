@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class ChatbotController extends Controller
 {
-    public function send(Request $request)
+   public function send(Request $request)
 {
     $message = $request->message;
 
@@ -31,4 +31,5 @@ class ChatbotController extends Controller
     return response()->json(
         $response->json()
     );
+}
 }
