@@ -17,7 +17,7 @@
                     <tr>
                         <td align="center" style="padding:0 0 14px;">
                             <img
-                                src="{{ url('images/logo.jpg') }}"
+                                src="{{ config('app.url') . '/images/logo.jpg' }}"
                                 alt="Logo PROCAFES"
                                 width="64"
                                 style="display:block; width:64px; max-width:64px; height:auto; border:0;"
