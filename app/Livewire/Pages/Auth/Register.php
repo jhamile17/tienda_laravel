@@ -35,16 +35,16 @@ class Register extends Component
         
         );
 
-        PendingRegistration::where('email', $data['email'])->delete();
-
-        $pending = PendingRegistration::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'] ?: null,
-            'token' => Str::random(64),
-            'expires_at' => now()->addMinutes(60),
-        ]);
+        $pending = PendingRegistration::updateOrCreate(
+            ['email' => $data['email']],
+            [
+                'name' => $data['name'],
+                'phone' => $data['phone'] ?: null,
+                'password' => Hash::make($data['password']),
+                'token' => Str::random(64),
+                'expires_at' => now()->addMinutes(60),
+            ]
+        );
 
         $pending->notify(new ConfirmPendingRegistrationEmail($pending));
 

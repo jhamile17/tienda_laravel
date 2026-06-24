@@ -24,7 +24,7 @@ Route::middleware('guest')->group(function () {
 Route::get('confirm-pending-registration/{token}', ConfirmPendingRegistrationController::class)
     ->middleware(['signed', 'throttle:6,1'])
     ->name('pending-registration.confirm');
-
+/*
 Route::middleware('auth')->group(function () {
     Volt::route('verify-email', 'pages.auth.verify-email')
         ->name('verification.notice');
@@ -50,7 +50,8 @@ Route::middleware('auth')->group(function () {
 | La seguridad la mantienen la firma temporal, el hash y el throttle.
 |
 */
+/*
 Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
     ->middleware(['signed', 'throttle:6,1'])
-    ->name('verification.verify');
+    ->name('verification.verify');*/
 

@@ -36,6 +36,20 @@ class ConfirmPendingRegistrationController extends Controller
         }
 
         $user = DB::transaction(function () use ($pending) {
+    $pending = PendingRegistration::whereKey($pending->id)
+        ->lockForUpdate()
+        ->firstOrFail();
+
+    if ($pending->expires_at->isPast()) {
+        abort(410, 'El enlace de confirmación venció.');
+    }
+
+    if (User::where('email', $pending->email)->exists()) {
+        $pending->delete();
+
+        abort(409, 'Este correo ya tiene una cuenta.');
+    }
+
             $user = User::create([
                 'name' => $pending->name,
                 'email' => $pending->email,
@@ -52,7 +66,6 @@ class ConfirmPendingRegistrationController extends Controller
 
             return $user;
         });
-
         Auth::login($user);
 
         return redirect()
