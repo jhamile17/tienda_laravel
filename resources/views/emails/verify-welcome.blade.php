@@ -5,70 +5,85 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verifica tu correo | PROCAFES</title>
 </head>
-<body style="margin:0; padding:0; background:#f6f3ef; font-family:Arial, Helvetica, sans-serif; color:#2f241e;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f6f3ef; padding:32px 16px;">
+
+<body style="margin:0; padding:0; background-color:#f6f3f0; font-family:Arial, Helvetica, sans-serif; color:#342727;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; background-color:#f6f3f0; padding:28px 12px;">
         <tr>
             <td align="center">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden;">
+
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%; max-width:540px;">
+
+                    {{-- Cabecera con logo --}}
                     <tr>
-                        <td align="center" style="background:#4a2c1f; padding:28px 32px;">
-                            <h1 style="margin:0; color:#ffffff; font-size:28px; letter-spacing:1px;">
+                        <td style="background-color:#3b2a2a; border-radius:10px 10px 0 0; padding:16px 24px; text-align:center;">
+                            <img
+                                src="{{ $message->embed(public_path('images/logo.jpg')) }}"
+                                alt="PROCAFES"
+                                width="52"
+                                style="display:block; width:52px; height:auto; margin:0 auto 8px; border:0;"
+                            >
+
+                            <p style="margin:0; color:#ffffff; font-size:16px; font-weight:bold; letter-spacing:0.4px;">
                                 PROCAFES
-                            </h1>
-                            <p style="margin:8px 0 0; color:#f4dfc6; font-size:14px;">
-                                Café que acompaña tus mejores momentos
                             </p>
                         </td>
                     </tr>
 
+                    {{-- Contenido --}}
                     <tr>
-                        <td style="padding:36px 32px;">
-                            <h2 style="margin:0 0 18px; color:#4a2c1f; font-size:24px;">
-                                ¡Bienvenido{{ filled($user->name) ? ', ' . $user->name : '' }}!
-                            </h2>
+                        <td style="background-color:#ffffff; border:1px solid #e5dddd; border-top:0; border-radius:0 0 10px 10px; padding:26px 24px;">
 
-                            <p style="margin:0 0 16px; font-size:16px; line-height:1.6;">
+                            <h1 style="margin:0 0 12px; font-size:22px; line-height:1.3; color:#342727;">
+                                ¡Bienvenido{{ filled($user->name) ? ', ' . $user->name : '' }}!
+                            </h1>
+
+                            <p style="margin:0 0 12px; font-size:15px; line-height:1.55; color:#665a5a;">
                                 Gracias por crear tu cuenta en PROCAFES.
                             </p>
 
-                            <p style="margin:0 0 16px; font-size:16px; line-height:1.6;">
-                                Para activar tu cuenta y poder acceder a tu perfil, compras y pagos,
-                                verifica el correo con el que te registraste:
+                            <p style="margin:0 0 14px; font-size:15px; line-height:1.55; color:#665a5a;">
+                                Para activar tu cuenta y puedas acceder a tu perfil, compras y pagos, verifica el correo con el que te registraste:
                             </p>
 
-                            <p style="margin:0 0 24px; padding:12px 16px; background:#f1ebe5; border-radius:8px; font-size:16px; font-weight:bold; word-break:break-word;">
+                            <p style="margin:0 0 20px; padding:10px 12px; background-color:#f6f3f0; border-left:3px solid #f4c430; border-radius:5px; font-size:14px; font-weight:bold; line-height:1.45; color:#342727; word-break:break-word;">
                                 {{ $user->email }}
                             </p>
 
-                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 24px;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 20px;">
                                 <tr>
-                                    <td style="background:#7b4b2a; border-radius:8px;">
-                                        <a href="{{ $url }}"
-                                           style="display:inline-block; padding:14px 24px; color:#ffffff; text-decoration:none; font-size:16px; font-weight:bold;">
+                                    <td style="background-color:#c9282d; border-radius:7px;">
+                                        <a
+                                            href="{{ $url }}"
+                                            style="display:inline-block; padding:12px 18px; color:#ffffff; text-decoration:none; font-size:14px; font-weight:bold; line-height:1;"
+                                        >
                                             Verificar mi correo
                                         </a>
                                     </td>
                                 </tr>
                             </table>
 
-                            <p style="margin:0 0 12px; color:#665a53; font-size:14px; line-height:1.6;">
+                            <p style="margin:0 0 10px; font-size:13px; line-height:1.5; color:#665a5a;">
                                 Por seguridad, este enlace vence en 60 minutos.
                             </p>
 
-                            <p style="margin:0; color:#665a53; font-size:14px; line-height:1.6;">
+                            <p style="margin:0; font-size:13px; line-height:1.5; color:#665a5a;">
                                 Si no creaste una cuenta en PROCAFES, puedes ignorar este mensaje.
                             </p>
+
                         </td>
                     </tr>
 
+                    {{-- Pie --}}
                     <tr>
-                        <td align="center" style="padding:20px 32px; background:#f1ebe5;">
-                            <p style="margin:0; color:#756860; font-size:12px;">
+                        <td align="center" style="padding:14px 8px 0;">
+                            <p style="margin:0; font-size:11px; line-height:1.5; color:#8a7d7d;">
                                 © {{ date('Y') }} PROCAFES. Todos los derechos reservados.
                             </p>
                         </td>
                     </tr>
+
                 </table>
+
             </td>
         </tr>
     </table>

@@ -24,7 +24,7 @@ class WelcomeVerifyEmail extends VerifyEmail
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Confirma tu correo y bienvenido a PROCAFES')
+            ->subject('Confirma tu correo para crear tu cuenta - Procafes')
             ->view('emails.verify-welcome', [
                 'user' => $notifiable,
                 'url' => $this->verificationUrl($notifiable),
