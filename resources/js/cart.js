@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
       div.className = 'list-group-item py-3';
       div.innerHTML = `
         <div class="d-flex gap-2">
-          <img src="${it.url ?? 'https://via.placeholder.com/60'}" class="rounded" width="60" height="60" alt="">
+          <img src="${it.image ?? 'https://via.placeholder.com/60'}" class="rounded" width="60" height="60" alt="">
           <div class="flex-grow-1">
             <a href="${it.url ?? '#'}" class="text-decoration-none fw-semibold">${it.name}</a>
             <div class="small text-muted">Precio: ${currency(price)}</div>

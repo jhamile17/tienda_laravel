@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Models\User;
 use App\Notifications\UsuarioReactivacion;
 
+
 // Controllers
 use App\Http\Controllers\Public\WishlistController;
 use App\Http\Controllers\Public\ChatbotController;
@@ -70,13 +71,7 @@ Route::post('/wishlist/', [WishlistController::class, 'index'])
 CHATBOT
 |--------------------------------------------------------------------------
 */
-Route::get('/chatbot', [ChatbotController::class, 'index'])
-    ->name('chatbot.index');
-
-Route::post('/chatbot/send', [ChatbotController::class, 'send'])
-    ->name('chatbot.send');
-Route::post('/chatbot/buy-now', [ChatbotController::class, 'buyNow'])
-    ->name('chatbot.buy-now');
+Route::post('/chatbot', [ChatbotController::class, 'chat']);
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -141,7 +136,7 @@ Route::post('/logout', function (Request $request) {
 |--------------------------------------------------------------------------
 */
 
-/*Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
@@ -165,7 +160,28 @@ Route::post('/logout', function (Request $request) {
 
     })->middleware('throttle:6,1')->name('verification.send');
 
-});*/
+});
+
+Route::get('/reactivar-test', function () {
+
+    $usuarios = User::whereNotNull('email')
+        ->where('email', 'like', '%@%') // básico
+        ->get();
+
+    foreach ($usuarios as $user) {
+
+        // Validar email correctamente
+        if (!filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+            continue; // saltar correos inválidos
+        }
+
+        $productos = Product::inRandomOrder()->take(3)->get();
+
+        $user->notify(new UsuarioReactivacion($productos));
+    }
+
+    return "Correos enviados";
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -191,26 +207,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-Route::get('/reactivar-test', function () {
-
-    $usuarios = User::whereNotNull('email')
-        ->where('email', 'like', '%@%') // básico
-        ->get();
-
-    foreach ($usuarios as $user) {
-
-        // Validar email correctamente
-        if (!filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-            continue; // saltar correos inválidos
-        }
-
-        $productos = Product::inRandomOrder()->take(3)->get();
-
-        $user->notify(new UsuarioReactivacion($productos));
-    }
-
-    return "Correos enviados";
-});
 /*
 |--------------------------------------------------------------------------
 | ADMIN

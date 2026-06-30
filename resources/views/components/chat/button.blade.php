@@ -1,13 +1,26 @@
+{{--==========================================================
+    BOTÓN FLOTANTE CHATBOT
+===========================================================--}}
+
 <button
     type="button"
-    class="btn btn-dark rounded-circle shadow position-fixed"
-    style="width: 60px; height: 60px; bottom: 100px; right: 24px; z-index: 1050;"
+    class="chatbot-button"
     data-bs-toggle="modal"
     data-bs-target="#chatbotModal"
     aria-label="Abrir asistente PROCAFES"
 >
-    <i class="bi bi-robot fs-4"></i>
+
+    <img
+        src="{{ asset('images/chatbot-icon.png') }}"
+        class="chatbot-icon"
+        alt="Asistente PROCAFES"
+    >
+
 </button>
+
+{{--==========================================================
+    MODAL CHATBOT
+===========================================================--}}
 
 <div
     class="modal fade"
@@ -16,12 +29,41 @@
     aria-labelledby="chatbotModalLabel"
     aria-hidden="true"
 >
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title fs-5" id="chatbotModalLabel">
-                    Asistente PROCAFES
-                </h2>
+
+    <div class="modal-dialog modal-dialog-scrollable chatbot-dialog">
+
+        <div class="modal-content chatbot-modal">
+
+            <!-- Cabecera -->
+
+            <div class="modal-header chatbot-header">
+
+                <div class="d-flex align-items-center">
+
+                    <img
+                        src="{{ asset('images/chatbot-icon.png') }}"
+                        alt="PROCAFES"
+                        class="chatbot-header-icon"
+                    >
+
+                    <div class="ms-3">
+
+                        <h5
+                            class="mb-0"
+                            id="chatbotModalLabel"
+                        >
+                            Asistente PROCAFES
+                        </h5>
+
+                        <small class="chat-status">
+
+                            🟢 En línea
+
+                        </small>
+
+                    </div>
+
+                </div>
 
                 <button
                     type="button"
@@ -29,11 +71,19 @@
                     data-bs-dismiss="modal"
                     aria-label="Cerrar"
                 ></button>
+
             </div>
 
-            <div class="modal-body">
+            <!-- Cuerpo -->
+
+            <div class="modal-body p-0 chatbot-body">
+
                 <x-chat.window />
+
             </div>
+
         </div>
+
     </div>
+
 </div>
